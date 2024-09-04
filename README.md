@@ -1,20 +1,21 @@
-# Windows BrainLinkDualSDK 开发指南
+# Windows BrainLinkDualSDK Guide
 
-**功能：**
+**Function：**
 
-解析双通道脑波数据，只支持32位程序 
+This document will guide third-party developers on how to parse data from BrainLink Dual devices. The current demo only supports the Windows operating system for 32-bit programs. 
 
-**支持的硬件设备：**
+**Hardware：**
    - BrainLinkDual
+   - Windows PC with Bluetooth
 
-**支持的.NET Standard**
+**.NET Standard version**
 
 - .NET Standard 2.0
 
-## BrainLinkDualSDK_Windows使用参考
+## BrainLinkDualSDK_Windows Reference
 
-- 项目引用 BrainLinkDualParser.dll namespace BrainLinkDual
-- 把G2G_GS5001_serial_Lib.dll ucrtbased.dll vcruntime140d.dll放到可执行文件根目录下
+- Reference the project to BrainLinkDualParser.dll with the namespace BrainLinkDual.
+- Place the G2G_GS5001_serial_Lib.dll, ucrtbased.dll, and vcruntime140d.dll in the root directory of the executable file.
 
 ## Class
 
@@ -22,56 +23,54 @@
 
 ### Method
 
-**void ParseByte(byte)** 传入数据
+**void ParseByte(byte)**: Pass in the data.
 
 ### Event
 
 **mOnSignCallBack(int sign, int battery)**
 
 ```
-sign:0-100，0为未佩戴，100为佩戴好。battery暂未使用
+sign: 0-100, where 0 indicates not worn, and 100 indicates properly worn. The battery is not in use for now.
 ```
 
 **mOnRawDataCallBack(int leftRaw, int rightRaw)**
 
 ```
-leftRaw:左通道原始脑波
-rightRaw:右通道原始脑波
+leftRaw: Raw EEG data from the left channel.
+rightRaw: Raw EEG data from the right channel.
 ```
 
 **mOnFrequencyCallBack(double[] leftFrequency, double[] rightFrequency)**
 
 ```
-leftRrequency: 数组长度为140，代表左通道脑波频率0-70hz的数值
-rightRrequency: 数组长度为140，代表右通道脑波频率0-70hz的数值
+leftFrequency: An array with a length of 140, representing the values of the left channel's brainwave frequencies from 0 to 70 Hz.
+rightFrequency: An array with a length of 140, representing the values of the right channel's brainwave frequencies from 0 to 70 Hz.
 ```
 
 **mOnEEGEventCallBack(float[] leftEEG, float[] rightEEG)**
 
 ```
 
-leftEEG: 数组长度为10，代表左通道脑波数值
-rightEEG: 数组长度为10，代表右通道脑波数值
+leftEEG: An array with a length of 10, representing the values of the brainwave signals from the left channel.
+rightEEG: An array with a length of 10, representing the values of the brainwave signals from the right channel.
 
-- Delta（0.5-4 Hz）：活动较缓慢的脑波，其在脑电图上的形状则是平缓的曲线，往往在深度睡眠时出现。德尔塔波在用户清醒状态下, 容易受到眨眼、转头、皱眉所产生的肌肉电干扰. 如德尔塔波数值较高, 请用户尽量保持静止再采集数据
-- Theta（4-8 Hz）：浅度睡眠或半醒觉状态，在冥想中深度放松时也会出现 Theta 脑波
-- Alpha（8-13 Hz）：醒觉状态下的深度放松状态。大脑运作较为畅顺，是思考和学习最佳状态
-- SMR（12-15 Hz）： SMR 波，也称为传感器摩斯节律（Sensorimotor Rhythm），是由位于美国旧金山的加利福尼亚州立大学的 M.B. Sterman 博士发现的。它在大脑皮层中的感觉皮层和运动皮层被发现。SMR 波与大脑的觉醒状态密切相关，是衡量大脑觉醒程度的一个尺度。SMR 波的增强与提高注意力和认知功能有关。例如，某些神经反馈训练技术会尝试增加 SMR 波的强度，以帮助改善注意力缺陷障碍（ADHD）患者的症状
-- Beta (15-30hz) : MidBeta和HighBeta
-- MidBeta（15-20 Hz）：大脑较为专注的状态，精神开始集中于一项事物，同时大脑的血氧耗能也会加快
-- HighBeta（20-30 Hz）：专注力高度集中，警觉或精神紧张的状态
-- Gamma（30-50 Hz）：涉及较高的处理任务以及认知功能。对学习，记忆和信息处
-理非常重要。同时伴随极端的情绪出现，例如喜乐、亢奋或极度沮丧等
-- Total 脑波数值之和
-- Max 脑波数值最大值
-
+- Delta (0.5-4 Hz): Slow-moving brainwaves that appear as flat lines on an electroencephalogram (EEG), often present during deep sleep. Delta waves can be easily interfered with by muscle electricity caused by blinking, turning the head, or frowning when the user is awake. If the Delta wave value is high, users should try to remain still before collecting data again.
+- Theta (4-8 Hz): Associated with light sleep or a drowsy, half-awake state, and also appears during deep relaxation in meditation.
+- Alpha (8-13 Hz): A state of deep relaxation while awake. The brain operates more smoothly, which is the optimal state for thinking and learning.
+- SMR (12-15 Hz): SMR waves, also known as Sensorimotor Rhythm, were discovered by Dr. M.B. Sterman at California State University in San Francisco. They are found in the sensory and motor cortices of the cerebral cortex. SMR waves are closely related to the brain's state of arousal and serve as a measure of brain alertness. An increase in SMR waves is associated with improved attention and cognitive function. For instance, certain neurofeedback training techniques aim to increase the strength of SMR waves to help alleviate symptoms in individuals with Attention Deficit Hyperactivity Disorder (ADHD).
+- Beta (15-30 Hz): Includes MidBeta and HighBeta.
+- MidBeta (15-20 Hz): A state of focused attention where the mind begins to concentrate on a single object, and the brain's oxygen consumption also increases.
+- HighBeta (20-30 Hz): A state of high concentration, alertness, or mental tension.
+- Gamma (30-50 Hz): Involves higher processing tasks and cognitive functions. It is very important for learning, memory, and information processing. It also accompanies extreme emotions, such as joy, excitement, or deep depression.
+- Total: The sum of all brainwave values.
+- Max: The maximum brainwave value.
 ```
 
 **mOnBrainEventCallBack(int leftAttention, int rightAttention, int leftMeditation, int rightMeditation)**
 
 ```
-leftAttention: 左通道专注度
-rightAttention: 右通道专注度
-leftMeditation: 左通道放松度
-rightMeditation: 右通道专注度
+leftAttention: Attention level of the left channel
+rightAttention: Attention level of the right channel
+leftMeditation: Relaxation level of the left channel
+rightMeditation: Relaxation level of the right channel
 ```
