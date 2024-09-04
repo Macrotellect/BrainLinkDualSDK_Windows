@@ -1,4 +1,4 @@
-# Windows BrainLinkDualParser 开发指南
+# Windows BrainLinkDualSDK 开发指南
 
 **功能：**
 
@@ -11,14 +11,10 @@
 
 - .NET Standard 2.0
 
-## BrainLinkParser使用参考
+## BrainLinkDualSDK_Windows使用参考
 
-### 项目引用
-
-- G2G_GS5001_serial_Lib.dll
-- ucrtbased.dll
-- vcruntime140d.dll
-- BrainLinkDualParser.dll
+- 项目引用 BrainLinkDualParser.dll namespace BrainLinkDual
+- 把G2G_GS5001_serial_Lib.dll ucrtbased.dll vcruntime140d.dll放到可执行文件根目录下
 
 ## Class
 
